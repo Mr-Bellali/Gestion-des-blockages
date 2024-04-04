@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Student Dashboard</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Student Dashboard</h1>
+    </div>
+    <div class="center">
+        <div id="dashboard">
+            <div class="user-holder"><h3>Student: <span id="userName"></span></h3></div>            <div class="text-holder"><h2>Aficher</h2></div>
+            <div class="data-table">
+                <div id="title">
+                    <div><p>Nom</p></div>
+                    <div><p>Date de creation</p></div>
+                    <div><p>Difficulte</p></div>
+                    <div><p>Valide</p></div>
+                </div>
+                <div class="data">
+                    <div><p>Karim</p></div>
+                    <div><p>12/03/2024</p></div>
+                    <div><p>medium</p></div>
+                    <div>
+                        <img src="../assets/cross.png" alt="">
+                        <div>
+                            <button><i class="fas fa-pen" style="color: green; font-size: 16px;"></i></button>
+                            <button><i class="fas fa-trash" style="color: red; font-size: 16px;"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="data">
+                    <div><p>Imane</p></div>
+                    <div><p>25/03/2024</p></div>
+                    <div><p>hard</p></div>
+                    <div>
+                        <img src="..//assets/check.png" alt="">
+                        <div>
+                            <button><i class="fas fa-pen" style="color: grey; font-size: 16px;"></i></button>
+                            <button><i class="fas fa-trash" style="color: grey; font-size: 16px;"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="add-button-holder">
+                <button><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
