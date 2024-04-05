@@ -13,6 +13,7 @@
   <body>
     <div class="navbar">
       <h1><span id="userType"></span> Dashboard</h1>
+      <button onclick="logout()">Log-out</button>
     </div>
     <div class="center">
       <div id="dashboard">
@@ -34,13 +35,13 @@
             <div>
               <img src="../assets/cross.png" alt="" />
               <div>
-                <button>
+                <button id="modify-button">
                   <i
                     class="fas fa-pen"
                     style="color: green; font-size: 16px"
                   ></i>
                 </button>
-                <button>
+                <button id="delete-button">
                   <i
                     class="fas fa-trash"
                     style="color: red; font-size: 16px"

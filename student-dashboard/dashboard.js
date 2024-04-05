@@ -89,12 +89,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const creationDate = new Date().toLocaleDateString(); // Get today's date
         const difficulty = ""; // Initialize difficulty with empty value
         const valid = false; // Set validity to false by default
-
+    
         // Get the existing data from local storage or initialize it if it doesn't exist
         let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
         
-        // Add the new entry to the blockages array
+        // Get the last used ID from local storage or initialize it to 0 if it doesn't exist
+        let lastId = parseInt(localStorage.getItem("lastId")) || 0;
+    
+        // Increment the last used ID
+        lastId++;
+    
+        // Add the new entry to the blockages array with the incremented ID
         blockages.push({
+            id: lastId,
             user: user, // Add user from session storage
             formateur: formateur,
             bootcamp: bootcamp,
@@ -107,20 +114,24 @@ document.addEventListener("DOMContentLoaded", function () {
             solution: "", // Initialize solution with empty value
             type_solution: "" // Initialize type_solution with empty value
         });
-
+    
         // Save the updated blockages array to local storage
         localStorage.setItem("blockages", JSON.stringify(blockages));
-
+    
+        // Update the last used ID in local storage
+        localStorage.setItem("lastId", lastId);
+    
         // Clear the form fields
         formateurSelect.value = "";
         bootcampSelect.value = "";
         titreInput.value = "";
         briefInput.value = "";
         detailsTextarea.value = "";
-
+    
         // Optionally, display a confirmation message or perform any other actions
         alert("Entry added successfully!");
     });
+    
 });
 
 // get data dynamically from local storage
@@ -186,3 +197,68 @@ document.addEventListener("DOMContentLoaded", function () {
     renderData();
 });
 
+
+// Function to handle deletion
+function deleteEntry(id) {
+    // Get the blockages array from local storage
+    let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
+    
+    // Filter out the entry with the specified ID
+    blockages = blockages.filter(entry => entry.id !== id);
+    
+    // Save the updated blockages array back to local storage
+    localStorage.setItem("blockages", JSON.stringify(blockages));
+    
+    // Re-render the data
+    renderData();
+}
+
+// Function to handle modification
+function modifyEntry(id) {
+    // You can reuse the existing popup for modification
+    // Populate the fields in the popup with the existing data of the entry with the specified ID
+    // Show the popup for modification
+}
+
+// Update the renderData function to include delete and modify buttons with click handlers
+function renderData() {
+    const blockages = JSON.parse(localStorage.getItem("blockages")) || [];
+    const dataTable = document.querySelector('.data-table');
+    dataTable.innerHTML = "";
+
+    // Title row
+    const titleRow = document.createElement("div");
+    titleRow.id = "title";
+    titleRow.innerHTML = `
+        <div><p>Nom</p></div>
+        <div><p>Date de creation</p></div>
+        <div><p>Difficulte</p></div>
+        <div><p>Valide</p></div>
+        <div><p>Action</p></div>
+    `;
+    dataTable.appendChild(titleRow);
+
+    blockages.forEach(function (entry) {
+        if (entry.user === user) {
+            const newDataDiv = document.createElement("div");
+            newDataDiv.classList.add("data");
+            newDataDiv.innerHTML = `
+                <div><p>${entry.user}</p></div>
+                <div><p>${entry.creationDate}</p></div>
+                <div><p>${entry.difficulty}</p></div>
+                <div>
+                    <img src="../assets/${entry.valid ? 'check' : 'cross'}.png" alt="" />
+                </div>
+                <div>
+                    <button onclick="modifyEntry(${entry.id})">
+                        <i class="fas fa-pen" style="color: ${!entry.valid ? 'green' : 'grey'}; font-size: 16px"></i>
+                    </button>
+                    <button onclick="deleteEntry(${entry.id})">
+                        <i class="fas fa-trash" style="color: ${!entry.valid ? 'red' : 'grey'}; font-size: 16px"></i>
+                    </button>
+                </div>
+            `;
+            dataTable.appendChild(newDataDiv);
+        }
+    });
+}

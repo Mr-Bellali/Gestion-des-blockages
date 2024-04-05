@@ -1,18 +1,16 @@
-// Check if the user is already logged in and redirect accordingly
-if (sessionStorage.getItem("loggedIn")) {
-    if (sessionStorage.getItem("userType") === "admin") {
-        window.location.href = "../admin-dashboard/dashboard.html";
-    } else if (sessionStorage.getItem("userType") === "student") {
-        window.location.href = "../student-dashboard/dashboard.html";
-    }
+// Check if the users array exists in localStorage
+var users = JSON.parse(localStorage.getItem("users"));
+
+// If the users array doesn't exist, initialize it with sample user data
+if (!users) {
+    users = [
+        { name: "admin", email: "admin@gmail.com", password: "admin", type: "admin" },
+        { name: "yassine", email: "yassine@gmail.com", password: "123456", type: "student" }
+    ];
+
+    // Store users array in localStorage
+    localStorage.setItem("users", JSON.stringify(users));
 }
-
-// Define users array with sample user data
-/*var users = [
-    { name: "admin", email: "admin@gmail.com", password: "admin", type: "admin" },
-    { name: "yassine", email: "yassine@gmail.com", password: "123456", type: "student" }
-];*/
-
 
 // Function to handle the login process
 function handleLogin() {
