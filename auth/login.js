@@ -8,10 +8,11 @@ if (sessionStorage.getItem("loggedIn")) {
 }
 
 // Define users array with sample user data
-var users = [
+/*var users = [
     { name: "admin", email: "admin@gmail.com", password: "admin", type: "admin" },
     { name: "yassine", email: "yassine@gmail.com", password: "123456", type: "student" }
-];
+];*/
+
 
 // Function to handle the login process
 function handleLogin() {
