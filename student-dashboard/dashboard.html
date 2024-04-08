@@ -22,56 +22,6 @@
         </div>
         <div class="text-holder"><h2>Aficher</h2></div>
         <div class="data-table">
-          <div id="title">
-            <div><p>Nom</p></div>
-            <div><p>Date de creation</p></div>
-            <div><p>Difficulte</p></div>
-            <div><p>Valide</p></div>
-          </div>
-          <div class="data">
-            <div><p>Karim</p></div>
-            <div><p>12/03/2024</p></div>
-            <div><p>medium</p></div>
-            <div>
-              <img src="../assets/cross.png" alt="" />
-              <div>
-                <button id="modify-button">
-                  <i
-                    class="fas fa-pen"
-                    style="color: green; font-size: 16px"
-                  ></i>
-                </button>
-                <button id="delete-button">
-                  <i
-                    class="fas fa-trash"
-                    style="color: red; font-size: 16px"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="data">
-            <div><p>Imane</p></div>
-            <div><p>25/03/2024</p></div>
-            <div><p>hard</p></div>
-            <div>
-              <img src="..//assets/check.png" alt="" />
-              <div>
-                <button>
-                  <i
-                    class="fas fa-pen"
-                    style="color: grey; font-size: 16px"
-                  ></i>
-                </button>
-                <button>
-                  <i
-                    class="fas fa-trash"
-                    style="color: grey; font-size: 16px"
-                  ></i>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="add-button-holder">
           <button id="add-button"><i class="fas fa-plus"></i></button>
@@ -81,7 +31,7 @@
     <div id="popup" class="popup">
       <div class="popup-content">
         <span class="close">&times;</span>
-        <h2>Ajout</h2>
+        <h2 id="popup-title"></h2>
         <label for="formateur">Formateur</label>
         <select id="formateur">
           <option value="Abdelaziz">Abdelaziz</option>

@@ -47,8 +47,10 @@ var addButton = document.getElementById("add-button");
 // Get the <span> element that closes the popup
 var closeBtn = document.getElementsByClassName("close")[0];
 
+
 // When the user clicks the button, open the popup 
 addButton.onclick = function() {
+    document.getElementById("popup-title").innerHTML = 'Ajout'
     popup.style.display = "block";
 }
 
@@ -130,16 +132,10 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Optionally, display a confirmation message or perform any other actions
         alert("Entry added successfully!");
+        window.location.href = "./dashboard.html"
+        
     });
     
-});
-
-// get data dynamically from local storage
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Get user from session storage
-    const user = sessionStorage.getItem("userName");
-
     // Function to render data from local storage
     function renderData() {
         const blockages = JSON.parse(localStorage.getItem("blockages")) || [];
@@ -177,10 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div>
                         <img src="../assets/${entry.valid ? 'check' : 'cross'}.png" alt="" />
                         <div>
-                            <button ${entry.valid ? '' : 'disabled'}>
+                            <button onclick="modifyEntry(${entry.id})">
                                 <i class="fas fa-pen" style="color: ${!entry.valid ? 'green' : 'grey'}; font-size: 16px"></i>
                             </button>
-                            <button ${entry.valid ? '' : 'disabled'}>
+                            <button onclick="deleteEntry(${entry.id})">
                                 <i class="fas fa-trash" style="color: ${!entry.valid ? 'red' : 'grey'}; font-size: 16px"></i>
                             </button>
                         </div>
@@ -198,8 +194,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
 // Function to handle deletion
 function deleteEntry(id) {
+    console.log("delete clicked")
     // Get the blockages array from local storage
     let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
     
@@ -210,55 +208,58 @@ function deleteEntry(id) {
     localStorage.setItem("blockages", JSON.stringify(blockages));
     
     // Re-render the data
-    renderData();
+    window.location.href = "./dashboard.html"
 }
 
 // Function to handle modification
+// Function to handle modification
 function modifyEntry(id) {
-    // You can reuse the existing popup for modification
-    // Populate the fields in the popup with the existing data of the entry with the specified ID
-    // Show the popup for modification
+    console.log("Modify button clicked for entry with ID:", id);
+
+    // Get the blockages array from local storage
+    let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
+    
+    // Find the entry with the specified ID
+    const entryToModify = blockages.find(entry => entry.id === id);
+    
+    // If entry found, populate the popup with its data
+    if (entryToModify) {
+        // Set the values in the form fields
+        document.getElementById("formateur").value = entryToModify.formateur;
+        document.getElementById("bootcamp").value = entryToModify.bootcamp;
+        document.getElementById("titre").value = entryToModify.titre;
+        document.getElementById("brief").value = entryToModify.brief;
+        document.getElementById("details").value = entryToModify.details;
+        
+        // Display the popup
+        document.getElementById("popup-title").innerHTML = 'Modifier';
+        popup.style.display = "block";
+        
+        // Add event listener to the submit button with modified functionality
+        document.getElementById("submit").addEventListener("click", function () {
+            // Update the values of the entry with the modified values
+            entryToModify.formateur = document.getElementById("formateur").value;
+            entryToModify.bootcamp = document.getElementById("bootcamp").value;
+            entryToModify.titre = document.getElementById("titre").value;
+            entryToModify.brief = document.getElementById("brief").value;
+            entryToModify.details = document.getElementById("details").value;
+            
+            // Save the updated blockages array to local storage
+            localStorage.setItem("blockages", JSON.stringify(blockages));
+            
+            // Optionally, display a confirmation message or perform any other actions
+            alert("Entry modified successfully!");
+            
+            // Close the popup
+            popup.style.display = "none";
+            
+            // Re-render the data
+            renderData();
+        });
+    } else {
+        // If entry not found, display an error message or handle it accordingly
+        console.log("Entry not found for ID:", id);
+    }
 }
 
-// Update the renderData function to include delete and modify buttons with click handlers
-function renderData() {
-    const blockages = JSON.parse(localStorage.getItem("blockages")) || [];
-    const dataTable = document.querySelector('.data-table');
-    dataTable.innerHTML = "";
 
-    // Title row
-    const titleRow = document.createElement("div");
-    titleRow.id = "title";
-    titleRow.innerHTML = `
-        <div><p>Nom</p></div>
-        <div><p>Date de creation</p></div>
-        <div><p>Difficulte</p></div>
-        <div><p>Valide</p></div>
-        <div><p>Action</p></div>
-    `;
-    dataTable.appendChild(titleRow);
-
-    blockages.forEach(function (entry) {
-        if (entry.user === user) {
-            const newDataDiv = document.createElement("div");
-            newDataDiv.classList.add("data");
-            newDataDiv.innerHTML = `
-                <div><p>${entry.user}</p></div>
-                <div><p>${entry.creationDate}</p></div>
-                <div><p>${entry.difficulty}</p></div>
-                <div>
-                    <img src="../assets/${entry.valid ? 'check' : 'cross'}.png" alt="" />
-                </div>
-                <div>
-                    <button onclick="modifyEntry(${entry.id})">
-                        <i class="fas fa-pen" style="color: ${!entry.valid ? 'green' : 'grey'}; font-size: 16px"></i>
-                    </button>
-                    <button onclick="deleteEntry(${entry.id})">
-                        <i class="fas fa-trash" style="color: ${!entry.valid ? 'red' : 'grey'}; font-size: 16px"></i>
-                    </button>
-                </div>
-            `;
-            dataTable.appendChild(newDataDiv);
-        }
-    });
-}
