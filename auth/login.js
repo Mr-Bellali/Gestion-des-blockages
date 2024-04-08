@@ -4,8 +4,10 @@ var users = JSON.parse(localStorage.getItem("users"));
 // If the users array doesn't exist, initialize it with sample user data
 if (!users) {
     users = [
-        { name: "admin", email: "admin@gmail.com", password: "admin", type: "admin" },
-        { name: "yassine", email: "yassine@gmail.com", password: "123456", type: "student" }
+        { name: "abdelaziz", email: "abdelaziz@gmail.com", password: "admin", type: "admin" },
+        { name: "ilyas", email: "ilyas@gmail.com", password: "admin", type: "admin" },
+        { name: "yassine", email: "yassine@gmail.com", password: "admin", type: "admin" },
+        { name: "yassine", email: "yassine1@gmail.com", password: "123456", type: "student" }
     ];
 
     // Store users array in localStorage

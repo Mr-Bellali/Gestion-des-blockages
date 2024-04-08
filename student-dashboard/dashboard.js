@@ -40,6 +40,8 @@ window.onload = function() {
 
 // Get the popup
 var popup = document.getElementById("popup");
+var difPopup = document.getElementById("dif-popup");
+
 
 // Get the button that opens the popup
 var addButton = document.getElementById("add-button");
@@ -109,9 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
             bootcamp: bootcamp,
             titre: titre,
             brief: brief,
-            details: details,
+            difficulty: details,
             creationDate: creationDate,
-            difficulty: difficulty,
             valid: valid,
             solution: "", // Initialize solution with empty value
             type_solution: "" // Initialize type_solution with empty value
@@ -164,12 +165,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Create a new div element for each entry
                 const newDataDiv = document.createElement("div");
                 newDataDiv.classList.add("data");
-
+                //${entry.difficulty}
                 // Add content to the new div element
                 newDataDiv.innerHTML = `
                     <div><p>${entry.user}</p></div>
                     <div><p>${entry.creationDate}</p></div>
-                    <div><p>${entry.difficulty}</p></div>
+                    <div><div><button onclick="showDifuculte('${entry.difficulty}')"><i class="fas fa-eye"></i></button></div>               </div>
                     <div>
                         <img src="../assets/${entry.valid ? 'check' : 'cross'}.png" alt="" />
                         <div>
@@ -262,4 +263,40 @@ function modifyEntry(id) {
     }
 }
 
-
+function showDifuculte(difficulty) {
+    console.log("Eye icon clicked!!");
+    
+    // Create a div element for the popup window
+    var popupWindow = document.createElement("div");
+    popupWindow.className = "difficulty-popup";
+    
+    // Apply styles to the popup window
+    popupWindow.style.backgroundColor = "white";
+    popupWindow.style.borderRadius = "15px";
+    popupWindow.style.borderColor = "#ce0033";
+    popupWindow.style.borderWidth = "1px";
+    popupWindow.style.borderStyle = "solid";
+    popupWindow.style.padding = "10px";
+    
+    // Set the content of the popup window
+    popupWindow.innerHTML = `
+        <p>Difficulty: ${difficulty}</p>
+    `;
+    
+    // Position the popup window below the eye icon
+    var eyeIcon = event.target;
+    var eyeIconRect = eyeIcon.getBoundingClientRect();
+    popupWindow.style.position = "absolute";
+    popupWindow.style.left = eyeIconRect.left + "px";
+    popupWindow.style.top = (eyeIconRect.bottom + window.scrollY) + "px";
+    
+    // Append the popup window to the document body
+    document.body.appendChild(popupWindow);
+    
+    // Close the popup window when clicked outside
+    window.addEventListener("click", function(event) {
+        if (!popupWindow.contains(event.target) && event.target !== eyeIcon) {
+            popupWindow.remove();
+        }
+    });
+}
