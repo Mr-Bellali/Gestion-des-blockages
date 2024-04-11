@@ -22,35 +22,35 @@ html, body {
 
 .center {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("../assets/Blurry-Background.jpg");
+
 }
 
-#login {
+#login, #signup {
     width: 650px;
     height: 790px;
     padding: 20px;
-    border: 2px solid #CE0033;
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    border: 2px solid white; /* Make the border transparent */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
-#signup{
-    width: 650px;
-    height: 790px;
-    padding: 20px;
-    border: 2px solid #CE0033;
-    border-radius: 10px;
-    justify-content: space-between;
-    align-items: center;
-    display: flex;
-    flex-direction: column; 
+#login h2, #signup h2 {
+    margin-bottom: 20px;
 }
+
+/* Additional styles specific to login and signup forms can be added here */
+
 
 .input-field {
     width: 500px;
@@ -102,28 +102,18 @@ html, body {
         justify-content: center;
     }
 
-    .navbar h1 {
-        margin-left: 0;
-        text-align: center;
+    #login, #signup {
+        padding: 15px; /* Reduce padding for smaller screens */
     }
 
-    #login {
-        width: 387px; 
-        height: 589px; 
-    }
-    #login h2{
-        margin-top: 50px;
-    }
     .input-field {
-        width: 316px; 
-        height: 42px; 
+        height: 50px; /* Adjust height for smaller screens */
         font-size: 14px;
     }
 
     .submit-button {
-        width: 140px;
         height: 50px; 
-        font-size: 16px; 
-        margin-top: 20px;
+        font-size: 14px; /* Adjust font size for smaller screens */
+        margin-top: 15px; /* Reduce margin-top for smaller screens */
     }
 }

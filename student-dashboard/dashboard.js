@@ -155,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div><p>Date de creation</p></div>
             <div><p>Difficulte</p></div>
             <div><p>Valide</p></div>
+            
         `;
         dataTable.appendChild(titleRow);
 
