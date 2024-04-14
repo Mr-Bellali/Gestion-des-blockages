@@ -1,23 +1,8 @@
+/* Original CSS */
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Nunito sans' sans-serif;
-}
-
-.navbar {
-    width: 100%;
-    height: 80px;
-    background: #CE0033;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.navbar h1{
-    font-size: 26px;
-    margin-left: 80px;
-    color: white;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .center {
@@ -27,30 +12,22 @@ html, body {
     justify-content: center;
     align-items: center;
     background-image: url("../assets/Blurry-Background.jpg");
-
 }
 
 #login, #signup {
     width: 650px;
-    height: 790px;
+    height: 650px;
     padding: 20px;
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    border: 2px solid white; /* Make the border transparent */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border: 2px solid white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-
-#login h2, #signup h2 {
-    margin-bottom: 20px;
-}
-
-/* Additional styles specific to login and signup forms can be added here */
-
 
 .input-field {
     width: 500px;
@@ -60,10 +37,10 @@ html, body {
     padding-left: 10px;
     font-size: 16px;
 }
-.input-field:focus {
-    font-size: 18px; 
-}
 
+.input-field:focus {
+    font-size: 18px;
+}
 
 .submit-button {
     width: 227px;
@@ -83,37 +60,37 @@ html, body {
 
 .center h2 {
     margin-top: 150px;
-    color: #504DC1;
+    color: white;
 }
 
-
-.part label{
+.part label {
     padding-bottom: 10px;
 }
 
-.part{
+.part {
     display: flex;
     flex-direction: column;
 }
 
 /* Media query for smaller screens */
 @media (max-width: 430px) {
-    .navbar {
-        justify-content: center;
-    }
-
     #login, #signup {
-        padding: 15px; /* Reduce padding for smaller screens */
+        width: 80%; /* Adjusted width to fit smaller screens */
+        height: auto; /* Let content determine height */
+        padding: 15px;
     }
 
     .input-field {
-        height: 50px; /* Adjust height for smaller screens */
+        width: 300px; /* Adjusted width to fit smaller screens */
+        max-width: none; /* Removed max-width */
         font-size: 14px;
     }
 
     .submit-button {
-        height: 50px; 
-        font-size: 14px; /* Adjust font size for smaller screens */
-        margin-top: 15px; /* Reduce margin-top for smaller screens */
+        width: 50%; /* Adjusted width to fit smaller screens */
+        height: 50px;
+        max-width: none; /* Removed max-width */
+        font-size: 14px;
+        margin-top: 60px;
     }
 }
