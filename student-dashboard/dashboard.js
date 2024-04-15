@@ -198,22 +198,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Function to handle deletion
+// Function to handle deletion with confirmation
 function deleteEntry(id) {
-    console.log("delete clicked")
-    // Get the blockages array from local storage
-    let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
+    // Get the confirmation popup element
+    var confirmationPopup = document.querySelector('.show-confirmation');
     
-    // Filter out the entry with the specified ID
-    blockages = blockages.filter(entry => entry.id !== id);
+    // Show the confirmation popup
+    confirmationPopup.style.display = "block";
     
-    // Save the updated blockages array back to local storage
-    localStorage.setItem("blockages", JSON.stringify(blockages));
-    
-    // Re-render the data
-    window.location.href = "./dashboard.html"
+    // Add event listener to the "Confirm" button
+    document.getElementById("yes-delete").addEventListener("click", function() {
+        // Get the blockages array from local storage
+        let blockages = JSON.parse(localStorage.getItem("blockages")) || [];
+        
+        // Filter out the entry with the specified ID
+        blockages = blockages.filter(entry => entry.id !== id);
+        
+        // Save the updated blockages array back to local storage
+        localStorage.setItem("blockages", JSON.stringify(blockages));
+        
+        // Re-render the data
+        window.location.href = "./dashboard.html";
+        
+        // Close the confirmation popup
+        confirmationPopup.style.display = "none";
+    });
+
+    // Add event listener to the "Cancel" button
+    document.getElementById("no-delete").addEventListener("click", function() {
+        // Close the confirmation popup without performing any action
+        confirmationPopup.style.display = "none";
+    });
 }
 
-// Function to handle modification
+
+
 // Function to handle modification
 function modifyEntry(id) {
     console.log("Modify button clicked for entry with ID:", id);
@@ -231,7 +250,7 @@ function modifyEntry(id) {
         document.getElementById("bootcamp").value = entryToModify.bootcamp;
         document.getElementById("titre").value = entryToModify.titre;
         document.getElementById("brief").value = entryToModify.brief;
-        document.getElementById("details").value = entryToModify.details;
+        document.getElementById("details").value = entryToModify.difficulty;
         
         // Display the popup
         document.getElementById("popup-title").innerHTML = 'Modifier';
@@ -258,11 +277,25 @@ function modifyEntry(id) {
             // Re-render the data
             renderData();
         });
+
+        // Add event listener to the close button to clear input fields
+        closeBtn.addEventListener("click", function () {
+            // Clear the input fields
+            document.getElementById("formateur").value = "";
+            document.getElementById("bootcamp").value = "";
+            document.getElementById("titre").value = "";
+            document.getElementById("brief").value = "";
+            document.getElementById("details").value = "";
+            
+            // Close the popup
+            popup.style.display = "none";
+        });
     } else {
         // If entry not found, display an error message or handle it accordingly
         console.log("Entry not found for ID:", id);
     }
 }
+
 
 function showDifuculte(difficulty) {
     console.log("Eye icon clicked!!");
@@ -301,3 +334,7 @@ function showDifuculte(difficulty) {
         }
     });
 }
+
+
+//show delete confiramation 
+

@@ -42,73 +42,86 @@ window.onload = function() {
 
 
 
+
+
 //add data to the local storage 
 document.addEventListener("DOMContentLoaded", function () {
+
     
     // Function to render data from local storage
-    // Function to render data from local storage
-// Function to render data from local storage
-function renderData() {
-    const blockages = JSON.parse(localStorage.getItem("blockages")) || [];
-    const user = sessionStorage.getItem("userName"); // Get user from session storage
-
-    // Select the data-table element
-    const dataTable = document.querySelector('.data-table');
-
-    // Clear existing entries
-    dataTable.innerHTML = "";
-
-    // Add the title row
-    const titleRow = document.createElement("div");
-    titleRow.id = "title";
-    titleRow.innerHTML = `
-        <div><p>Nom</p></div>
-        <div><p>Date de creation</p></div>
-        <div><p>Difficulte</p></div>
-        <div><p>Valide</p></div>
-    `;
-    dataTable.appendChild(titleRow);
-
-    // Loop through each blockages in blockages
-    var blockageIndex = -1;
-    blockages.forEach(function (blockage, index) {
-        // Check if the blockages matches the current user
-        if (user === blockage.formateur) {
-            blockageIndex++;
+    function renderData() {
+        
+        try {
             
+            const blockages = JSON.parse(localStorage.getItem("blockages")) || [];
             
+            console.log("Blockages from local storage:", blockages); // Log blockages to console
+            const user = sessionStorage.getItem("userName"); // Get user from session storage
 
-            console.log("Index:", index); // Log the loop index
-            console.log("Blockage Index:", blockageIndex); 
+            // Check if blockages exist in local storage
+            if (!blockages || blockages.length === 0) {
+                
+                console.log("No blockages found in local storage.");
+                return;
+            }
 
-            // Create a new div element for each blockages
-            const newDataDiv = document.createElement("div");
-            newDataDiv.classList.add("data");
-            //${blockage.difficulty}
-            // Add content to the new div element
-            newDataDiv.innerHTML = `
-                <div><p>${blockage.user}</p></div>
-                <div><p>${blockage.creationDate}</p></div>
-                <div><div><button onclick="showDifuculte('${blockage.difficulty}')"><i class="fas fa-eye"></i></button></div>
-                </div>
-                <div>
-                    <img src="../assets/${blockage.valid ? 'check' : 'cross'}.png" alt="" />
-                    <div>
-                    <!-- Inside your renderData function where you generate the comment icon button -->
-                    <button onclick="showSolution('${blockage.valid}', '${blockage.type_solution}', '${blockage.solution.replace(/[\n\r]+/g, '\\n')}', '${blockageIndex}')">
-                        <i class="fas fa-comments" style="font-size: 25px"></i>
-                    </button>
-                    </div>
-                </div>
+            // Select the data-table element
+            
+            const dataTable = document.querySelector('.data-table');
+
+            // Clear existing entries
+            dataTable.innerHTML = "";
+
+            // Add the title row
+            const titleRow = document.createElement("div");
+            titleRow.id = "title";
+            titleRow.innerHTML = `
+                <div><p>Nom</p></div>
+                <div><p>Date de creation</p></div>
+                <div><p>Difficulte</p></div>
+                <div><p>Valide</p></div>
             `;
-    
-            // Append the new div element to the data-table
-            dataTable.appendChild(newDataDiv);
+            dataTable.appendChild(titleRow);
+
+            // Loop through each blockage in blockages
+            var blockageIndex = -1;
+            blockages.forEach(function (blockage, index) {
+                // Check if the blockage matches the current user
+                if (user != blockage.formateur) {
+                    
+                    blockageIndex++;
+
+                    console.log("Index:", index); // Log the loop index
+                    console.log("Blockage Index:", blockageIndex);
+
+                    // Create a new div element for each blockage
+                    const newDataDiv = document.createElement("div");
+                    newDataDiv.classList.add("data");
+                    // Add content to the new div element
+                    newDataDiv.innerHTML = `
+                        <div><p>${blockage.user}</p></div>
+                        <div><p>${blockage.creationDate}</p></div>
+                        <div><div><button onclick="showDifuculte('${blockage.difficulty}')"><i class="fas fa-eye"></i></button></div>
+                        </div>
+                        <div>
+                            <img src="../assets/${blockage.valid ? 'check' : 'cross'}.png" alt="" />
+                            <div>
+                            <!-- Inside your renderData function where you generate the comment icon button -->
+                            <button onclick="showSolution('${blockage.valid}', '${blockage.type_solution}', '${blockage.solution.replace(/[\n\r]+/g, '\\n')}', '${blockageIndex}')">
+                                <i class="fas fa-comments" style="font-size: 25px"></i>
+                            </button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Append the new div element to the data-table
+                    dataTable.appendChild(newDataDiv);
+                }
+            });
+        } catch (error) {
+            console.error("Error rendering data:", error);
         }
-    });
-}
-
-
+    }
 
     // Call the renderData function to initially render the data
     renderData();

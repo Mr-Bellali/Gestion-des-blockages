@@ -16,14 +16,13 @@
       <button class="logout" onclick="logout()">Log-out</button>
     </div>
     <div class="center">
-      <div id="dashboard">
-        <div class="user-holder">
+      <div class="add-button-holder">
+        
+        <button id="add-button"><i class="fas fa-plus"></i></button>
+        
           <h3>Student: <span id="userName"></span></h3>
-        </div>
-        <div class="text-holder"><h2>Aficher</h2></div>
-        <div class="add-button-holder">
-          <button id="add-button"><i class="fas fa-plus"></i></button>
-        </div>
+      </div>
+      <div id="dashboard">
         <div class="data-table">
         </div>
         
@@ -60,6 +59,14 @@
       </div>
     </div>
 
+
+    <div class="show-confirmation">
+      <h3>confirm deletion ?</h3>
+        <div class="conf-holder">
+          <button id="yes-delete">Confirm</button>
+          <button id="no-delete">Cancel</button>
+        </div>
+    </div>
     
     <script src="dashboard.js"></script>
   </body>
